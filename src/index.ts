@@ -1,125 +1,126 @@
-class User {
-    constructor(public id: number, public name: string, public email: string, public age:number) {
-    }
+class Member {
+    constructor(public id: number, public name: string, public email: string, public age: number) {}
 }
 
-class Task {
-    constructor(public id: number, public role: string, public assignedTo?: number) {
-    }
+class Job {
+    constructor(public id: number, public role: string, public assignedTo?: number) {}
 }
 
-class UserService {
-    private users: User[] = [];
+class MemberService {
+    private members: Member[] = [];
     private nextId = 1;
 
-    createUser(name: string, email: string, age: number): User {
-        const user = new User(this.nextId++, name, email, age);
-        this.users.push(user);
-        return user;
+    createMember(name: string, email: string, age: number): Member {
+        const member = new Member(this.nextId++, name, email, age);
+        this.members.push(member);
+        return member;
     }
 
-    getAllUsers() {
-        return this.users;
+    getAllMembers() {
+        return this.members;
     }
 
     getById(id: number) {
-        return this.users.find((user) => user.id === id);
+        return this.members.find((member) => member.id === id);
     }
 
     getByEmail(email: string) {
-        return this.users.find((user) => user.email === email);
+        return this.members.find((member) => member.email === email);
     }
 
-    updateUser(id: number, updates: { name: string, email: string, age: number }) {
-        const user = this.getById(id);
-        if (!user) return false;
-        user.name = updates.name ?? user.name;
-        user.email = updates.email ?? user.email;
-        user.age = updates.age ?? user.age;
+    updateMember(id: number, updates: { name: string, email: string, age: number }) {
+        const member = this.getById(id);
+        if (!member) return false;
+        member.name = updates.name ?? member.name;
+        member.email = updates.email ?? member.email;
+        member.age = updates.age ?? member.age;
         return true;
     }
 
-    deleteUser(id: number) {
-        const userIndex = this.users.findIndex((user) => user.id === id);
-        return userIndex !== -1 ? this.users.splice(userIndex, 1) : false;
+    deleteMember(id: number) {
+        const index = this.members.findIndex((member) => member.id === id);
+        return index !== -1 ? this.members.splice(index, 1) : false;
     }
 }
 
-class TaskManager {
-    private tasks: Task[] = [];
-    private nextTaskId: number = 1;
+class JobManager {
+    private jobs: Job[] = [];
+    private nextJobId: number = 1;
 
-    createTask(role: string) {
-        const task = new Task(this.nextTaskId++, role);
-        this.tasks.push(task);
-        return task;
+    createJob(role: string) {
+        const job = new Job(this.nextJobId++, role);
+        this.jobs.push(job);
+        return job;
     }
 
-    getAllTasks() {
-        return this.tasks;
+    getAllJobs() {
+        return this.jobs;
     }
 
     getById(id: number) {
-        const availableTasks = this.tasks.find((task) => task.id === id);
-        if (!availableTasks) return false;
-        return  this.tasks.find((task) => task.id === id);
+        const job = this.jobs.find((job) => job.id === id);
+        if (!job) return false;
+        return job;
     }
 
-    updateTask(id: number, newRole: string) {
-        const task = this.getById(id);
-        if (!task) return false;
-        task.role = newRole;
+    updateJob(id: number, newRole: string) {
+        const job = this.getById(id);
+        if (!job) return false;
+        job.role = newRole;
         return true;
     }
 
-    deleteTask(id: number) {
-        const taskIndex = this.tasks.findIndex((task) => task.id === id);
-        return taskIndex !== -1 ? this.tasks.splice(taskIndex, 1) : false;
+    deleteJob(id: number) {
+        const index = this.jobs.findIndex((job) => job.id === id);
+        return index !== -1 ? this.jobs.splice(index, 1) : false;
     }
 
-    assignTask(taskId: number, userId: number) {
-        const task = this.getById(taskId);
-        if (!task) return false;
-        task.assignedTo = userId;
+    assignJob(jobId: number, memberId: number) {
+        const job = this.getById(jobId);
+        if (!job) return false;
+        job.assignedTo = memberId;
         return true;
     }
 
-    unassignTask(taskId: number, userId: number) {
-        const task = this.getById(taskId);
-        if (!task) return false;
-        delete task.assignedTo;
+    unassignJob(jobId: number, memberId: number) {
+        const job = this.getById(jobId);
+        if (!job) return false;
+        delete job.assignedTo;
         return true;
     }
 
-    getByUser(userId: number) {
-        return this.tasks.filter(task => task.assignedTo === userId);
+    getByMember(memberId: number) {
+        return this.jobs.filter(job => job.assignedTo === memberId);
     }
 }
 
-const userService = new  UserService();
-const taskManager = new TaskManager();
 
-const user1 =  userService.createUser('Hakim' ,'hakim@gmail.com', 20);
-const user2 = userService.createUser('Hak' ,'hak@gmail.com', 22);
-
-const task1 = taskManager.createTask('Read');
-const task2 = taskManager.createTask('Research');
-const task3 = taskManager.createTask('Build Project');
+const memberService = new MemberService();
+const jobManager = new JobManager();
 
 
-taskManager.assignTask(task1.id, user1.id);
-taskManager.assignTask(task2.id, user2.id);
-taskManager.assignTask(task3.id, user1.id);
-
-taskManager.updateTask(task1.id, 'Read');
-
-taskManager.unassignTask(task2.id, user2.id);
-
-taskManager.deleteTask(task2.id);
-console.log("All Users:", userService.getAllUsers());
-console.log("All Tasks:", taskManager.getAllTasks());
-console.log("Tasks for Hakim:", taskManager.getByUser(user1.id));
-console.log("Tasks for Hak:", taskManager.getByUser(user2.id));
+const member1 = memberService.createMember('Hakim', 'hakim@gmail.com', 20);
+const member2 = memberService.createMember('Hak', 'hak@gmail.com', 22);
 
 
+const job1 = jobManager.createJob('Read');
+const job2 = jobManager.createJob('Research');
+const job3 = jobManager.createJob('Build Project');
 
+
+jobManager.assignJob(job1.id, member1.id);
+jobManager.assignJob(job2.id, member2.id);
+jobManager.assignJob(job3.id, member1.id);
+
+
+jobManager.updateJob(job1.id, 'Read');
+
+
+jobManager.unassignJob(job2.id, member2.id);
+jobManager.deleteJob(job2.id);
+
+
+console.log("All Members:", memberService.getAllMembers());
+console.log("All Jobs:", jobManager.getAllJobs());
+console.log("Jobs for Hakim:", jobManager.getByMember(member1.id));
+console.log("Jobs for Hak:", jobManager.getByMember(member2.id));

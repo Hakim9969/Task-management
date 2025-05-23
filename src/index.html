@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member & Job Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Task Management</h1>
+        
+        <div class="sections">
+            <div class="member-section">
+                <h2>User</h2>
+                <form id="memberForm">
+                    <input type="text" id="memberName" placeholder="Name" required>
+                    <input type="email" id="memberEmail" placeholder="Email" required>
+                    <input type="number" id="memberAge" placeholder="Age" required>
+                    <button type="submit">Create User</button>
+                </form>
+                <div class="member-list">
+                    <h3>All Users</h3>
+                    <ul id="membersList"></ul>
+                </div>
+            </div>
+
+            <div class="job-section">
+                <h2>Task</h2>
+                <form id="jobForm">
+                    <input type="text" id="jobRole" placeholder="Job" required>
+                    <button type="submit">Create Task</button>
+                </form>
+                <div class="job-list">
+                    <h3>All Tasks</h3>
+                    <ul id="jobsList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="dist/index.js"></script>
+</body>
+</html>

@@ -24,8 +24,8 @@
 ![Edited User details](<./images/Screenshot 2025-05-23 153754.png>)
 
 # Removing user
-![Removing user](<./images/Screenshot 2025-05-23 153827.png>)!
+![Removing user](<./images/Screenshot 2025-05-23 153827.png>)
 
 # Removed User
-[Removed User](<./images/Screenshot 2025-05-23 153837.png>)
+![Removed User](<./images/Screenshot 2025-05-23 153837.png>)
 
